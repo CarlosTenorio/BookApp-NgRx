@@ -1,0 +1,15 @@
+<div *ngIf="book" (click)="goToDetail()" [class.pointer]="!book.custom">
+    <mat-card>
+        <mat-card-title-group>
+            <mat-card-title> {{ book.volumeInfo.title }} {{ book.custom ? '(Custom)' : null }} </mat-card-title>
+            <mat-card-subtitle *ngIf="book.volumeInfo.subtitle">
+                {{ book.volumeInfo.subtitle }}
+            </mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-content>
+            <p *ngIf="book.volumeInfo.description">
+                {{ book.volumeInfo.description }}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
