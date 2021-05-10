@@ -112,6 +112,7 @@
     },
     "defaultProject": "portal",
     "cli": {
-        "analytics": false
+        "analytics": false,
+        "defaultCollection": "@ngrx/schematics"
     }
 }

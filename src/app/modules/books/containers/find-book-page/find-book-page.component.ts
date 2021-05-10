@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { BookService } from '@books/services';
@@ -5,29 +6,32 @@ import { Book } from '@books/models';
 
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
+import { getBooksState } from '../../reducers';
+import { searchBook } from '../../actions/book/book.actions';
 
 @Component({
     selector: 'bc-find-book-page',
     templateUrl: './find-book-page.component.html',
     styleUrls: ['./find-book-page.component.scss']
 })
-export class FindBookPageComponent implements OnInit, OnDestroy {
+export class FindBookPageComponent implements OnInit {
     books$: Observable<Book[]>;
     searching$: Observable<boolean>;
-    destroy$: Subject<boolean> = new Subject<boolean>();
+    // destroy$: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private bookService: BookService) {}
+    constructor(private store: Store<getBooksState>) {}
 
-    ngOnInit(): void {
-        this.bookService.setSearching(false);
-        this.searching$ = this.bookService.searching$;
+    ngOnInit() {
+        // this.bookService.setSearching(false);
+        // this.searching$ = this.bookService.searching$;
+        this.books$ = this.store.select(fromBooks.getSearchResults);
     }
 
-    ngOnDestroy(): void {
-        this.destroy$.next(true);
-    }
+    // ngOnDestroy(): void {
+    //     this.destroy$.next(true);
+    // }
 
     search(queryTitle: string) {
-        this.books$ = this.bookService.searchBooks(queryTitle).pipe(takeUntil(this.destroy$));
+        this.store.dispatch(searchBook({ queryTitle }));
     }
 }

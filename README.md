@@ -1,6 +1,6 @@
 # Book App
 
-Angular 9 App for Workshops to teach Angular.
+Angular 10 App for Workshops to teach Angular. Using NgRx library, based on Redux.
 
 ## Development server
 
