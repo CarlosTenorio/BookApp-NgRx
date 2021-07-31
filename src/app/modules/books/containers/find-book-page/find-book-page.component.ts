@@ -1,12 +1,10 @@
 import { Store } from '@ngrx/store';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { BookService } from '@books/services';
 import { Book } from '@books/models';
 
-import { takeUntil } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
-import { getBooksState } from '../../reducers';
+import { Observable } from 'rxjs';
+import { fromBooks } from '../../reducers';
 import { searchBook } from '../../actions/book/book.actions';
 
 @Component({
@@ -19,7 +17,7 @@ export class FindBookPageComponent implements OnInit {
     searching$: Observable<boolean>;
     // destroy$: Subject<boolean> = new Subject<boolean>();
 
-    constructor(private store: Store<getBooksState>) {}
+    constructor(private store: Store) {}
 
     ngOnInit() {
         // this.bookService.setSearching(false);

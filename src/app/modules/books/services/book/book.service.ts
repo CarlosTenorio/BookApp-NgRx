@@ -53,9 +53,10 @@ export class BookService {
     }
 
     searchBooks(queryTitle: string): Observable<Book[]> {
+        j;
         this.searchingSubject.next(true);
         return this.http.get<{ items: Book[] }>(`${environment.googleAPI}?q=${queryTitle}`).pipe(
-            map(books => books.items || []),
+            map((books) => books.items || []),
             finalize(() => {
                 this.searchingSubject.next(false);
             })
@@ -64,7 +65,7 @@ export class BookService {
 
     retrieveBook(bookId: string): Observable<Book> {
         this.checkIfIsCollection(bookId);
-        return this.http.get<Book>(`${environment.googleAPI}/${bookId}`).pipe(map(book => book));
+        return this.http.get<Book>(`${environment.googleAPI}/${bookId}`).pipe(map((book) => book));
     }
 
     checkIfIsCollection(bookId: string) {
